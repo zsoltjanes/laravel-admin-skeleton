@@ -1,0 +1,182 @@
+@import 'tailwindcss';
+@import '../../vendor/livewire/flux/dist/flux.css';
+
+@source '../views';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../vendor/livewire/flux-pro/stubs/**/*.blade.php';
+@source '../../vendor/livewire/flux/stubs/**/*.blade.php';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+| Design tokens of the Paces admin theme (https://themes.coderthemes.com/paces/tailwind/index.html),
+| default skin: light topbar, dark sidenav. Mode-dependent values are overridden under .dark below.
+*/
+@theme {
+    --font-sans: 'Nunito', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+    /* Flux's neutral scale mapped onto the Paces "default" grays */
+    --color-zinc-50: #f6f7fb;
+    --color-zinc-100: #eef2f7;
+    --color-zinc-200: #e7e9eb;
+    --color-zinc-300: #d5dbe1;
+    --color-zinc-400: #9ba6b7;
+    --color-zinc-500: #8a969c;
+    --color-zinc-600: #6c757d;
+    --color-zinc-700: #2c2d38;
+    --color-zinc-800: #1e1f27;
+    --color-zinc-900: #17181e;
+    --color-zinc-950: #121318;
+
+    --color-accent: var(--color-primary);
+    --color-accent-content: var(--color-primary);
+    --color-accent-foreground: var(--color-white);
+
+    /* Brand colors */
+    --color-primary: #236dc9;
+    --color-primary-hover: #1e5dab;
+    --color-secondary: #7b70ef;
+    --color-success: #02bc9c;
+    --color-info: #5bc3e1;
+    --color-warning: #f9bf59;
+    --color-danger: #f7577e;
+
+    /* Surfaces and text */
+    --color-body-bg: #f6f7fb;
+    --color-body: #4c4c5c;
+    --color-card: #fff;
+    --color-line: #e7e9eb;
+    --color-muted: #9ba6b7;
+
+    /* Topbar (light) */
+    --color-topbar-bg: #fff;
+    --color-topbar-item: #6c757d;
+    --color-topbar-item-hover: var(--color-primary);
+
+    /* Sidenav (dark) */
+    --color-sidenav-bg: #1e1f27;
+    --color-sidenav-border: #1e1f27;
+    --color-sidenav-item: #7a8ea7;
+    --color-sidenav-item-hover: #bccee4;
+    --color-sidenav-item-active: #ced6df;
+    --color-sidenav-item-active-bg: #22232c;
+
+    --radius-card: 4px;
+    --shadow-card: 0 1px 4px 0 #828fa326;
+
+    --spacing-base: 20px;
+    --spacing-topbar: 65px;
+    --spacing-sidenav: 245px;
+}
+
+@layer theme {
+    .dark {
+        --color-body-bg: #17181e;
+        --color-body: #aab8c5;
+        --color-card: #1e1f27;
+        --color-line: #293036;
+        --color-muted: #8391a2;
+
+        --color-topbar-bg: #252630;
+        --color-topbar-item: #adb5bf;
+        --color-topbar-item-hover: #e0eeff;
+
+        --color-sidenav-border: #2c2d38;
+        --color-sidenav-item: #8495ab;
+
+        --shadow-card: 0 0 30px #0000004d;
+    }
+}
+
+@layer base {
+
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-line, currentColor);
+    }
+
+    /* Every clickable element gets a pointer cursor (Tailwind 4 no longer sets it on buttons) */
+    button:not(:disabled),
+    [role='button']:not([aria-disabled='true']),
+    [role='menuitem'],
+    [role='menuitemradio'],
+    [role='menuitemcheckbox'],
+    [role='option'],
+    [role='tab'],
+    [role='switch'],
+    [role='checkbox'],
+    [role='radio'],
+    ui-checkbox,
+    ui-radio,
+    ui-switch,
+    summary,
+    label[for],
+    select,
+    input[type='checkbox'],
+    input[type='radio'],
+    input[type='submit'],
+    input[type='button'],
+    input[type='reset'],
+    ::file-selector-button {
+        cursor: pointer;
+    }
+}
+
+[data-flux-field]:not(ui-radio, ui-checkbox) {
+    @apply grid gap-2;
+}
+
+[data-flux-label] {
+    @apply  !mb-0 !leading-tight;
+}
+
+input:focus[data-flux-control],
+textarea:focus[data-flux-control],
+select:focus[data-flux-control] {
+    @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
+}
+
+/* \[:where(&)\]:size-4 {
+    @apply size-4;
+} */
+
+/*
+ * Sidenav scrollbar (Paces SimpleBar look without the library): a 6px rounded thumb in the
+ * primary color at 50% opacity inside a 10px track, only visible while the menu is hovered.
+ */
+@utility scrollbar-sidenav {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+
+    &:hover {
+        scrollbar-color: color-mix(in oklab, var(--color-primary) 50%, transparent) transparent;
+    }
+
+    @supports selector(::-webkit-scrollbar) {
+        scrollbar-width: auto;
+        scrollbar-color: auto;
+
+        &::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border: 2px solid transparent;
+            border-radius: 7px;
+            background-color: transparent;
+            background-clip: padding-box;
+            transition: background-color 0.2s linear;
+        }
+
+        &:hover::-webkit-scrollbar-thumb {
+            background-color: color-mix(in oklab, var(--color-primary) 50%, transparent);
+        }
+    }
+}
