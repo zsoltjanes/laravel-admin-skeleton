@@ -2,7 +2,7 @@
 
 Kiinduló projekt (skeleton) Laravel alkalmazásokhoz, kész admin felülettel. Új projektnél nem kell újra megépíteni a bejelentkezést, a felhasználókezelést, a beállításokat és az admin layoutot: ezek már működnek, magyar és angol nyelven, világos és sötét módban.
 
-Az admin kinézete a [Paces Tailwind téma](https://themes.coderthemes.com/paces/tailwind/index.html) alapján készült, de nem a téma saját CSS/JS-ét használja: Flux komponensekből és Tailwind utility-kből van újraépítve.
+Az admin felület Flux komponensekből és Tailwind utility-kből épül.
 
 ## Mit tartalmaz
 
@@ -76,7 +76,7 @@ routes/settings.php          Beállítás oldalak
 resources/views/admin/       Admin nézetek: layouts/, auth/, settings/, partials/, components/
 resources/views/common/      Admin és publikus oldal közös részei (logó, nyelvváltó, téma váltó)
 resources/views/flux/        Flux felülírások
-resources/css/app.css        Paces design tokenek (színek, árnyékok, méretek, dark mód)
+resources/css/app.css        Design tokenek (színek, árnyékok, méretek, dark mód)
 resources/js/charts.js       ApexCharts integráció
 lang/                        Magyar fordítások
 ```
